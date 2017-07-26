@@ -1,0 +1,65 @@
+<div id="promo">
+  <a href="http://takeanote.cc/<%= @user.login %>" target="_self">
+  http://takeanote.cc<strong>/</strong><%= @user.login %></a>
+  <!--Updated <%= time_ago_in_words(@user.updated_at) %> ago.
+  <div id="stats""'>Stats for nerds: <%= pluralize(@user.content.split.count, 'word') %>, <%= pluralize(@user.content.split('').count, 'character') %></div>-->
+</div>
+
+<div class="stack">
+  <div class="layer_1">
+    <div class="layer_2">
+      <div class="layer_3">
+        <%= hidden_field_tag :login, @user.login, :class => 'login' %>
+        <%= text_area_tag :content, @user.content, :class => 'contents', :spellcheck => 'true' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="controls">
+
+  <% if @user.has_password %>
+    <% link_to('/logout/' + @user.login, :title => 'Logout') do  %>
+      <img src="/images/padlock.png" width="8" height="13" />
+    <% end %>
+  <% end %>
+
+  <span class="bubble_wrapper">
+    <a href="#change_url" onclick="justClickedBubble = true;">change url</a>
+
+    <div class="bubble" id="bubble_for_change_url" style="display:none;" onclick="justClickedBubble = true;">
+      <div class="highlight"></div>
+
+      <div class="message" id="message_for_change_url_unavailable" style="display:none;">URL is unavailable</div>
+
+      <%= form_tag('/options/change_url/' + @user.login, :id => 'change_url_form') do %>
+      <%= text_field_tag :url, @user.login, :class => 'text_input', :id => 'change_url_input' %><%= submit_tag 'save', :class => 'button', :id => 'change_url_button' %>
+      <% end %>
+
+
+      <div class="nipple"></div>
+    </div>
+  </span>
+
+  <% if !@user.has_password %>
+    <span class="bubble_wrapper">
+      <a href="#add_password" onclick="justClickedBubble = true;">add password</a>
+
+      <div class="bubble" id="bubble_for_set_password" style="display:none;" onclick="justClickedBubble = true;">
+          <div class="highlight"></div>
+
+          <%= form_tag('/options/add_password/' + @user.login) do %>
+          <%= password_field_tag :password, '', :class => 'text_input', :id => 'add_password_input' %><%= submit_tag 'save', :class => 'button' %>
+          <% end %>
+
+          <div class="nipple"></div>
+      </div>
+    </span>
+  <% end %>
+
+  <% if @user.has_password %>
+    <%= link_to 'remove password', '/options/remove_password/' + @user.login  %>
+  <% end %>
+
+</div>
+

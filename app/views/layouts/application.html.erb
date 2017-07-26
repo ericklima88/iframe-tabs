@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title + ' | ' if !@title.nil? %>notepad</title>
+
+  <link rel="shortcut icon" type="image/gif" href="/images/favicon.gif" />
+
+  <%= stylesheet_link_tag    'master', media: 'all' %>
+  
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<%= yield %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</body>
+</html>
+
