@@ -1,0 +1,59 @@
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<style type="text/css">
+	iframe, object, embed {
+	    width: 100%;
+	    height: 100%;
+	    max-width: 100%;
+	}
+</style>
+</head>
+<body>
+<ul class="nav nav-tabs">
+  <li id="1" class="active"><a data-toggle="tab" href="#link1">Link 1</a></li>
+  <li id="2"><a data-toggle="tab" href="#link2">Link 2</a></li>
+  <li id="3"><a data-toggle="tab" href="#link3">Link 3</a></li>
+</ul>
+<div class="tab-content">
+  <div id="link1" class="tab-pane fade in active">
+    <iframe  src="link1"></iframe>
+  </div>
+  <div id="link2" class="tab-pane fade">
+    <iframe  src="link2"></iframe>
+  </div>
+  <div id="link3" class="tab-pane fade">
+    <iframe  src="link3"></iframe>
+  </div>
+  
+</div>
+
+<script text="text/javascript">
+
+	setInterval(function(){
+		var elementos = $('ul li').toArray();
+
+		var ativo = elementos.find(function (el) { return $(el).hasClass("active"); });
+
+		var proximoId = 1;
+
+		if (parseInt($(ativo).attr("id")) + 1 <= $('ul li').toArray().length)
+			proximoId = parseInt($(ativo).attr("id"))+1;
+
+		$("#" + proximoId + " a").click();
+
+	}, 30000);
+
+
+</script>
+</body>
+</html>
