@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def json_content
+    JSON.parse(self.content)
+  end
+
   def self.authenticate(login, passwd)
     p "#{login}"
     p "#{passwd}"

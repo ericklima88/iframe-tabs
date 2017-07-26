@@ -2,6 +2,7 @@ Notepad::Application.routes.draw do
  get ':login' => 'users#main'
 
  post 'options/save_content/:login' => 'users#save'
+ post 'options/add_tab/:login' => 'users#new_tab'
  get 'options/check_existence/:login' => 'users#check_existence'
  post 'options/change_url/:login' => 'users#change_url'
  post 'options/add_password/:login' => 'users#add_password'
@@ -9,7 +10,7 @@ Notepad::Application.routes.draw do
 
  post 'logout/:login' => 'users#sign_out'
  get 'login/:login' => 'users#sign_in'
- post 'login/:login' => 'users#sign_in'
+ post 'login' => 'users#sign_in'
 
   root :to => 'users#main'
 

@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.4'
+ruby '2.1.3'
+
+gem 'rails', '4.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -34,3 +36,7 @@ gem 'protected_attributes'
 # group :development, :test do
 #   gem 'webrat'
 # end
+group :production do
+	gem 'pg'
+	gem 'rails12_factor'
+end

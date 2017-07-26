@@ -76,11 +76,31 @@ class UsersController < ApplicationController
       @user = User.new
       @user.login = login
       @user.password = ''
-      @user.content = ''
+      @user.content = '[{ "title": "Link", "src": "https://en.wikipedia.org/wiki/Main_Page" }]'
       @user.save
     end
 
     @title = @user.login
+  end
+
+  def new_tab
+    
+    login = params[:login]
+    
+    @user = User.find_by_login(login)
+    
+    json_content = @user.json_content
+
+    json_content.push({ 
+      "title" => "Link", 
+      "src" => params[:url] 
+    })
+
+    @user.content = json_content.to_json
+    
+    @user.save
+
+    render :json => (json_content)
   end
 
   def save
