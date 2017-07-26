@@ -1,15 +1,12 @@
-iframe tabs
 
-<p align="center">
-    <img src="https://raw.githubusercontent.com/ericklima88/iframe-tabs/master/iframe_tap_logo.png"
-         height="280">
-</p>
+# iframe tabs
+<img align="left" height="280" src="https://raw.githubusercontent.com/ericklima88/iframe-tabs/master/iframe_tap_logo.png">
 
 ----
 
-<p align="center">
-        <img src="https://img.shields.io/badge/License-MIT-yellow.svg"
-             alt="License MIT">
-</p>
+iFrame Tabs offers a solution that allows a browser tab to automatically cycle through a set of URLs then pausing for as many seconds as you like. Ideal for a Dashboard in non-plugin environments.
 
-iframe tabs a Open-Source project to show url on iframes in any tabs.
+<img align="left" src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License MIT">
+
+
+
