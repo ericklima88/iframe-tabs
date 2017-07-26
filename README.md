@@ -7,7 +7,5 @@ iframe tabs
 iframe tabs a Open-Source project to show url on iframes in any tabs.
 
 <p align=“center”>
-  <a href=“LICENSE”>
-    <img src=“https://img.shields.io/badge/license-MIT-blue.svg” alt=“MIT Licensed” />
-  </a>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 </p>
