@@ -1,9 +1,11 @@
 <p align="center">
     <img src="https://raw.githubusercontent.com/ericklima88/iframe-tabs/master/iframe_tap_logo.png"
-         height="130">
+         height="280">
 </p>
 ============
-#iframe tabs
+
+iframe tabs
+
 <p align="center">
         <img src="https://img.shields.io/badge/License-MIT-yellow.svg"
              alt="Gratipay">
