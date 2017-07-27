@@ -1,19 +1,18 @@
 <input type="hidden" id="login" value="<%= @user.login %>">
 
-<ul class="nav nav-tabs">
+<ul id='iframes' class="nav nav-tabs">
   <% @user.json_content.each_with_index do |row , index| %>
-    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="link<%= index %>"><%= row['title'] %></a></li>
+    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="#link<%= index %>"><%= row['title'] %><button class="close closeTab" type="button" >×</button></a></li>
   <% end %>
+  <button onclick="addTab()" class="btn btn-success">Add</button>
 </ul>
 
-<button onclick="addTab()" >Add</button>
-
 <div class="tab-content">
-<% @user.json_content.each_with_index do |row , index| %>
-  <div id="link<%= index %>" class="tab-pane fade <%= 'in active' if index == 0  %>">
-    <iframe src="<%= row['src'] %>"></iframe>
-  </div>
-<% end %>
+  <% @user.json_content.each_with_index do |row , index| %>
+    <div id="link<%= index %>" class="tab-pane fade <%= 'in active' if index == 0  %>">
+      <iframe src="<%= row['src'] %>"></iframe>
+    </div>
+  <% end %>
 </div>
 
 
@@ -34,6 +33,21 @@
 
   }, 2000);
 
+
+  //this method will register event on close icon on the tab..
+  function registerCloseEvent() {
+
+      $(".closeTab").click(function () {
+
+          //there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
+          var tabContentId = $(this).parent().attr("href");
+          $(this).parent().parent().remove(); //remove li of tab
+          $('#iframes a:last').tab('show'); // Select first tab
+          $(tabContentId).remove(); //remove respective tab content
+
+      });
+  }
+
   var addTab = function(){
     var url = prompt("Please enter your url", "New tab");
 
@@ -45,6 +59,10 @@
         })
     }
   }
+
+  $(function () {
+    registerCloseEvent();
+  })
 
 </script>
 
