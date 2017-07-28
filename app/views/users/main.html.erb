@@ -2,7 +2,7 @@
 
 <ul id='iframes' class="nav nav-tabs">
   <% @user.json_content.each_with_index do |row , index| %>
-    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="#link<%= index %>"><%= row['title'] %><button class="close closeTab" type="button" >×</button></a></li>
+    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="#link<%= index %>"><%= row['src'] %><button class="close closeTab" type="button" >×</button></a></li>
   <% end %>
   <button onclick="addTab()" class="btn btn-success">Add</button>
 </ul>
