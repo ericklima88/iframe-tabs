@@ -12,6 +12,7 @@ gem 'rails', '4.2.0'
 # gem 'mysql2', '~> 0.2.11'
 gem 'mysql2', '~> 0.3.11'
 gem 'protected_attributes'
+gem 'guid', '~> 0.1.1'
 # gem 'rake'
 
 # Use unicorn as the web server
@@ -37,6 +38,6 @@ gem 'protected_attributes'
 #   gem 'webrat'
 # end
 group :production do
-	gem 'pg'
+  gem 'pg'
   gem 'rails_12factor'
 end

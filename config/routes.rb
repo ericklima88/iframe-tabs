@@ -7,6 +7,7 @@ Notepad::Application.routes.draw do
  post 'options/change_url/:login' => 'users#change_url'
  post 'options/add_password/:login' => 'users#add_password'
  get 'options/remove_password/:login' => 'users#remove_password'
+ delete 'options/remove_tab/:login' => 'users#remove_tab'
 
  post 'logout/:login' => 'users#sign_out'
  get 'login/:login' => 'users#sign_in'
