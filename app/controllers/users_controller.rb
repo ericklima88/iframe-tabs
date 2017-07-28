@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 
     json.delete_if do |obj| obj["guid"] == params[:guid] end
 
-    user.content = json
+    user.content = json.to_json
     user.save
 
     render :json => (json)
