@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.3.4'
 
 gem 'rails', '4.2.0'
 
@@ -36,7 +36,7 @@ gem 'protected_attributes'
 # group :development, :test do
 #   gem 'webrat'
 # end
-# group :production do
-# 	gem 'pg'
-# 	gem 'rails12_factor'
-# end
+group :production do
+	gem 'pg'
+  gem 'rails_12factor'
+end
