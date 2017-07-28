@@ -61,6 +61,24 @@ class UsersController < ApplicationController
     redirect_to '/' + params[:login]
   end
 
+  def remove_tab
+
+    login = params[:login]
+
+    p login
+    
+    user = User.find_by_login(login)
+    
+    json = user.json_content
+
+    json.delete_if do |obj| obj["guid"] == params[:guid] end
+
+    user.content = json
+    user.save
+
+    render :json => (json)
+  end
+
   def main
     login = params[:login]
 
@@ -93,7 +111,8 @@ class UsersController < ApplicationController
 
     json_content.push({ 
       "title" => "Link", 
-      "src" => params[:url] 
+      "src" => params[:url],
+      "guid" => Guid.new.to_s
     })
 
     @user.content = json_content.to_json
@@ -102,6 +121,7 @@ class UsersController < ApplicationController
 
     render :json => (json_content)
   end
+
 
   def save
     @user = User.find_by_login(params[:login])

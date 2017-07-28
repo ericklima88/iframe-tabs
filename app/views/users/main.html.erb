@@ -2,7 +2,7 @@
 
 <ul id='iframes' class="nav nav-tabs">
   <% @user.json_content.each_with_index do |row , index| %>
-    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="#link<%= index %>"><%= row['src'] %><button class="close closeTab" type="button" >×</button></a></li>
+    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="#link<%= index %>"><%= row['src'] %><button class="close closeTab" type="button" id="<%= row['guid']%>" >×</button></a></li>
   <% end %>
   <button onclick="addTab()" class="btn btn-success">Add</button>
 </ul>
@@ -43,17 +43,32 @@
 
       $(".closeTab").click(function () {
 
-          //there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
-          var tabContentId = $(this).parent().attr("href");
-          $(this).parent().parent().remove(); //remove li of tab
-          $('#iframes a:last').tab('show'); // Select first tab
-          $(tabContentId).remove(); //remove respective tab content
+        var button = $(this);
+
+          removeTab(button.attr("id"), function (argument) {
+
+            var tabContentId = button.parent().attr("href");
+            button.parent().parent().remove();
+            $('#iframes a:last').tab('show');
+            $(tabContentId).remove();
+
+          })
 
       });
+
+
+  }
+
+  function removeTab(guid, callback) {
+    $.ajax({
+        url: "/options/remove_tab/" + $("#login").val(),
+        type:'DELETE',
+        data: { 'guid': guid }
+    }).done(callback)
   }
 
   var addTab = function(){
-    var url = prompt("Please enter your url", "New tab");
+    var url = prompt("Please enter your url", "http://");
 
     if (url != null) {
         $.ajax({
