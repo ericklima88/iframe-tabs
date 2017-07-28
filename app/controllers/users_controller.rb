@@ -76,7 +76,7 @@ class UsersController < ApplicationController
       @user = User.new
       @user.login = login
       @user.password = ''
-      @user.content = '[{ "title": "Link", "src": "https://en.wikipedia.org/wiki/Main_Page" }]'
+      @user.content = '[]'
       @user.save
     end
 
