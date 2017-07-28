@@ -20,50 +20,57 @@
 </head>
 <body>
 <ul class="nav nav-tabs">
-  <li id="1"><a data-toggle="tab" href="#link1">Link 1</a></li>
-  <li id="2"><a data-toggle="tab" href="#link2">Link 2</a></li>
+  <li id="0"><a data-toggle="tab" href="#link0">Link 1</a></li>
+  <li id="1"><a data-toggle="tab" href="#link1">Link 2</a></li>
 </ul>
 <div class="tab-content">
-  <div id="link1" class="tab-pane fade in active">
-    <iframe id="iframe1" src=""></iframe>
+  <div id="link0" class="tab-pane fade in active">
+    <iframe id="iframe0" src=""></iframe>
   </div>
-  <div id="link2" class="tab-pane fade">
-    <iframe id="iframe2" src="https://vistoapp.com/"></iframe>
+  <div id="link1" class="tab-pane fade">
+    <iframe id="iframe1" src=""></iframe>
   </div>
 </div>
 
 <script text="text/javascript">
 
-	var urls = ["link1", "link2", "link3"];
+	var urls = ["link1", "link2"];
 
 	function loadIframe () {
 		var elements = $('ul li').toArray();
 
 		var activeElement = elements.find(function (el) { return $(el).hasClass("active"); });
+		
+		var nextId = 0;
 
-		var nextId = 1;
-
-		if (parseInt($(activeElement).attr("id")) + 1 <= $('ul li').toArray().length)
+	    if (parseInt($(activeElement).attr("id")) + 1 < $('ul li').toArray().length)
 			nextId = parseInt($(activeElement).attr("id"))+1;
 
-		// TODO carregar source do proximo iframe a partir do index no array
-		// remover o iframe anterior ao carregar o atual
-		// verificar a aba  na primeira execução ao remover o anterior inexistente
-
-		$("#" + nextId + " a").click();
-		var previousIframe = activeElement;
-		// var currentIframe = document.getElementById("iframe" + nextId);
+		$("#" + nextId + " a").click();		
+		
 		var currentIframe = $("#iframe" + nextId);
-		currentIframe.src = urls[nextId];
+		
+		var src = urls[nextId];
+    	$(currentIframe).attr("src", src);
+    	var previousIframe = null;
+    	if(activeElement)
+    	{
+    		var previousId = parseInt($(activeElement).attr("id"));
+    		previousIframe = $("#iframe" + previousId);
+    	}
 
 		$(currentIframe).on("load", function() {
-		  previousIframe.src = "";
-		  // remove o previous frame
+			if(previousIframe)
+			{
+				$(previousIframe).empty();
+		  		$(previousIframe).attr("src", "");
+		  		$(previousIframe).off("load");
+			}
+		  
 		  setTimeout(function(){
 				loadIframe();
 			}, 5000);
 		});
-
 	}
 
 	$(function(){
