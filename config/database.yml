@@ -3,7 +3,7 @@
 development:
  adapter: mysql2
  encoding: utf8
- database: notepad_online
+ database: iframe_tabs
  username: root
  password: 
  host: localhost
@@ -14,7 +14,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
  adapter: mysql2
- database: notepad_online
+ database: iframe_tabs
  encoding: utf8
  username: root
  password: 

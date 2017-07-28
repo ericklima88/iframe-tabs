@@ -10,6 +10,7 @@
 <div class="tab-content">
   <% @user.json_content.each_with_index do |row , index| %>
     <div id="link<%= index %>" class="tab-pane fade <%= 'in active' if index == 0  %>">
+      <input id="url<%= index %>" type="hidden" value="<%= row['src'] %>">
       <iframe src="<%= row['src'] %>"></iframe>
     </div>
   <% end %>
@@ -19,23 +20,45 @@
 
 <script text="text/javascript">
 
-  setInterval(function(){
-    var elementos = $('ul li').toArray();
+  function loadIframe () {
+    var elements = $('ul li').toArray();
 
-    var ativo = elementos.find(function (el) { return $(el).hasClass("active"); });
+    var activeElement = elements.find(function (el) { return $(el).hasClass("active"); });
+    
+    var nextId = 0;
 
-    var proximoId = 0;
+    if (parseInt($(activeElement).attr("id")) + 1 < $('ul li').toArray().length)
+      nextId = parseInt($(activeElement).attr("id"))+1;
 
-    if (parseInt($(ativo).attr("id")) + 1 < $('ul li').toArray().length)
-      proximoId = parseInt($(ativo).attr("id"))+1;
+    $("#" + nextId + " a").click();   
+    
+    var currentIframe = $("#link" + nextId + " iframe");
+    
+    var src = $("#url" + nextId).val();
+    $(currentIframe).attr("src", src);
+    
+    var previousIframe = null;
+    var previousId = 0;
 
-    var src = $("#link" + proximoId + " iframe").attr("src");
+    if(activeElement)
+    {
+      previousId = parseInt($(activeElement).attr("id"));
+      previousIframe = $("#link" + previousId + " iframe");
+    }
 
-    $("#link" + proximoId + " iframe").attr("src", src);
-
-    $("#" + proximoId + " a").click();
-
-  }, 5000);
+    $(currentIframe).on("load", function() {
+      if(previousIframe && previousId != nextId)
+      {
+        $(previousIframe).empty();
+        $(previousIframe).attr("src", "");
+        $(previousIframe).off("load");
+      }
+      
+      setTimeout(function(){
+        loadIframe();
+      }, 20000);
+    });
+  }
 
 
   //this method will register event on close icon on the tab..
@@ -66,6 +89,7 @@
 
   $(function () {
     registerCloseEvent();
+    loadIframe();
   })
 
 </script>
