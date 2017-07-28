@@ -24,14 +24,18 @@
 
     var ativo = elementos.find(function (el) { return $(el).hasClass("active"); });
 
-    var proximoId = 1;
+    var proximoId = 0;
 
-    if (parseInt($(ativo).attr("id")) + 1 <= $('ul li').toArray().length)
+    if (parseInt($(ativo).attr("id")) + 1 < $('ul li').toArray().length)
       proximoId = parseInt($(ativo).attr("id"))+1;
+
+    var src = $("#link" + proximoId + " iframe").attr("src");
+
+    $("#link" + proximoId + " iframe").attr("src", src);
 
     $("#" + proximoId + " a").click();
 
-  }, 2000);
+  }, 5000);
 
 
   //this method will register event on close icon on the tab..
