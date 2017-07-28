@@ -1,0 +1,96 @@
+<input type="hidden" id="login" value="<%= @user.login %>">
+
+<ul id='iframes' class="nav nav-tabs">
+  <% @user.json_content.each_with_index do |row , index| %>
+    <li id="<%= index %>" class="<%= 'active' if index == 0  %>"><a data-toggle="tab" href="#link<%= index %>"><%= row['src'] %><button class="close closeTab" type="button" >×</button></a></li>
+  <% end %>
+  <button onclick="addTab()" class="btn btn-success">Add</button>
+</ul>
+
+<div class="tab-content">
+  <% @user.json_content.each_with_index do |row , index| %>
+    <div id="link<%= index %>" class="tab-pane fade <%= 'in active' if index == 0  %>">
+      <input id="url<%= index %>" type="hidden" value="<%= row['src'] %>">
+      <iframe src="<%= row['src'] %>"></iframe>
+    </div>
+  <% end %>
+</div>
+
+
+
+<script text="text/javascript">
+
+  function loadIframe () {
+    var elements = $('ul li').toArray();
+
+    var activeElement = elements.find(function (el) { return $(el).hasClass("active"); });
+    
+    var nextId = 0;
+
+    if (parseInt($(activeElement).attr("id")) + 1 < $('ul li').toArray().length)
+      nextId = parseInt($(activeElement).attr("id"))+1;
+
+    $("#" + nextId + " a").click();   
+    
+    var currentIframe = $("#link" + nextId + " iframe");
+    
+    var src = $("#url" + nextId).val();
+    $(currentIframe).attr("src", src);
+    
+    var previousIframe = null;
+    var previousId = 0;
+
+    if(activeElement)
+    {
+      previousId = parseInt($(activeElement).attr("id"));
+      previousIframe = $("#link" + previousId + " iframe");
+    }
+
+    $(currentIframe).on("load", function() {
+      if(previousIframe && previousId != nextId)
+      {
+        $(previousIframe).empty();
+        $(previousIframe).attr("src", "");
+        $(previousIframe).off("load");
+      }
+      
+      setTimeout(function(){
+        loadIframe();
+      }, 20000);
+    });
+  }
+
+
+  //this method will register event on close icon on the tab..
+  function registerCloseEvent() {
+
+      $(".closeTab").click(function () {
+
+          //there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
+          var tabContentId = $(this).parent().attr("href");
+          $(this).parent().parent().remove(); //remove li of tab
+          $('#iframes a:last').tab('show'); // Select first tab
+          $(tabContentId).remove(); //remove respective tab content
+
+      });
+  }
+
+  var addTab = function(){
+    var url = prompt("Please enter your url", "New tab");
+
+    if (url != null) {
+        $.ajax({
+          url: "/options/add_tab/" + $("#login").val(),
+          type:'POST',
+          data: { 'url': url }
+        })
+    }
+  }
+
+  $(function () {
+    registerCloseEvent();
+    loadIframe();
+  })
+
+</script>
+

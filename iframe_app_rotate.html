@@ -20,39 +20,62 @@
 </head>
 <body>
 <ul class="nav nav-tabs">
-  <li id="1" class="active"><a data-toggle="tab" href="#link1">Link 1</a></li>
-  <li id="2"><a data-toggle="tab" href="#link2">Link 2</a></li>
-  <li id="3"><a data-toggle="tab" href="#link3">Link 3</a></li>
+  <li id="0"><a data-toggle="tab" href="#link0">Link 1</a></li>
+  <li id="1"><a data-toggle="tab" href="#link1">Link 2</a></li>
 </ul>
 <div class="tab-content">
-  <div id="link1" class="tab-pane fade in active">
-    <iframe  src="link1"></iframe>
+  <div id="link0" class="tab-pane fade in active">
+    <iframe id="iframe0" src=""></iframe>
   </div>
-  <div id="link2" class="tab-pane fade">
-    <iframe  src="link2"></iframe>
+  <div id="link1" class="tab-pane fade">
+    <iframe id="iframe1" src=""></iframe>
   </div>
-  <div id="link3" class="tab-pane fade">
-    <iframe  src="link3"></iframe>
-  </div>
-  
 </div>
 
 <script text="text/javascript">
 
-	setInterval(function(){
-		var elementos = $('ul li').toArray();
+	var urls = ["link1", "link2"];
 
-		var ativo = elementos.find(function (el) { return $(el).hasClass("active"); });
+	function loadIframe () {
+		var elements = $('ul li').toArray();
 
-		var proximoId = 1;
+		var activeElement = elements.find(function (el) { return $(el).hasClass("active"); });
+		
+		var nextId = 0;
 
-		if (parseInt($(ativo).attr("id")) + 1 <= $('ul li').toArray().length)
-			proximoId = parseInt($(ativo).attr("id"))+1;
+	    if (parseInt($(activeElement).attr("id")) + 1 < $('ul li').toArray().length)
+			nextId = parseInt($(activeElement).attr("id"))+1;
 
-		$("#" + proximoId + " a").click();
+		$("#" + nextId + " a").click();		
+		
+		var currentIframe = $("#iframe" + nextId);
+		
+		var src = urls[nextId];
+    	$(currentIframe).attr("src", src);
+    	var previousIframe = null;
+    	if(activeElement)
+    	{
+    		var previousId = parseInt($(activeElement).attr("id"));
+    		previousIframe = $("#iframe" + previousId);
+    	}
 
-	}, 30000);
+		$(currentIframe).on("load", function() {
+			if(previousIframe)
+			{
+				$(previousIframe).empty();
+		  		$(previousIframe).attr("src", "");
+		  		$(previousIframe).off("load");
+			}
+		  
+		  setTimeout(function(){
+				loadIframe();
+			}, 5000);
+		});
+	}
 
+	$(function(){
+		loadIframe();
+	});
 
 </script>
 </body>
