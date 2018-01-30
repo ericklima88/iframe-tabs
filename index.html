@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#">Electron Tabs</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container text-center" id="main">
+    <form>
+      <div class="form-group">
+        <label for="emailUser">Email</label>
+        <input type="email" name="emailUser" id="userEmail" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for=senhaUser>Senha</label>
+        <input type="password" name="senhaUser" id="userSenha" class="form-control">
+      </div>
+      <div class="form-group">
+        <a href="#" class="btn btn-success" id="enviar">Entrar</a>
+        <a href="#" class="btn btn-default" id="limpar">Limpar</a>
+      </div>
+    </form>
+    <button type="button" class="btn btn-primary" id="webview"></button>
+  </div>
+  <script>require('./renderer')</script>
+  <script>require('./app/js/format')</script>
+  <script>
+    window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');
+  </script>
+  <script src="./node_modules//bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+</body>
+
+</html>
